@@ -1,0 +1,30 @@
+services :
+  mariadb :
+    env_file: .env
+    restart : always
+    # expose:
+    #   - "3306"
+    build:
+      context: .
+      dockerfile: requirements/mariadb/Dockerfile
+
+  wordpress : 
+    env_file: .env
+    restart : always
+    # ports:
+    #   - 8080:80
+    # depends-on : 
+    #   - mariadb
+      # - nginx
+    build:
+      context: .
+      dockerfile: requirements/wordpress/Dockerfile
+    volumes :
+      - db:/var/www/html
+
+  # nginx : 
+  #   restart : always
+  #   dockerfile: ./requiements/nginx/Dockerfile
+
+volumes : 
+  db : 
