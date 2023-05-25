@@ -1,12 +1,8 @@
-events {}
-
-http {
-  server {
+server {
     listen 80;
     root /var/www/html;
-
+    index index.html
     location / {
 
     }
   }
-}
