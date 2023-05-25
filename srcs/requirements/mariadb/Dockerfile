@@ -15,3 +15,4 @@ RUN echo "qw"
 
 RUN chmod 777 init.sh && ./init.sh
 
+CMD ["mysqld"]
