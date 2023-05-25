@@ -7,10 +7,6 @@ RUN	wget -O /tmp/wordpress.tar.gz "http://wordpress.org/latest.tar.gz"
 RUN mkdir -p /var/www/html
 RUN	tar -xvzf /tmp/wordpress.tar.gz -C /var/www/html
 
-ENV DB_NAME=db
-ENV ADMIN_NAME=admin
-ENV ADMIN_PASSWD=admin
-
 COPY conf /var/www/html/wordpress/wp-config.php
 
 ENTRYPOINT ["/bin/bash"]
