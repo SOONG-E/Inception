@@ -1,14 +1,10 @@
 FROM debian:buster
 
-WORKDIR .
+RUN apt-get update && apt-get upgrade -y && apt-get install -y mariadb-server vim procps
 
-RUN apt-get -y update && \
-	apt-get install -y mariadb-server php-mysql 
+COPY ./setup.sql /setup.sql
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY init.sh init.sh
-
-RUN echo "qw"
-
-RUN chmod 777 init.sh && ./init.sh
+RUN service mysql start && mariadb < /setup.sql
 
 CMD ["mysqld"]
