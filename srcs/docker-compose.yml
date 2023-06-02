@@ -4,36 +4,65 @@ services :
     container_name: mariadb
     restart : always
     expose:
-      - "3306"
+      - 3306
+    image : mariadb:tag
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
+    volumes:
+      - db:/var/lib/mysql
+    networks :
+      - tier
 
   wordpress :  
     env_file: .env
     container_name: wordpress
     restart : always
-    ports:
-      - 9000:9000
-    # depends-on : 
-    #   - mariadb
-      # - nginx
+    expose:
+      - 9000
+    depends_on : 
+      - mariadb
+    image: wordpress:tag
     build:
       context: requirements/wordpress
       dockerfile: Dockerfile
+    tty: true
     volumes :
-      - db:/var/www/html
+      - wordpressdb:/var/www/html
+    networks :
+      - tier
 
   nginx : 
+    env_file: .env
     container_name: nginx
     restart : always
     ports :
-      - 80:80
+      - 443:443
+    depends_on : 
+      - wordpress
+    image : nginx:tag
     build:
           context: requirements/nginx
           dockerfile: Dockerfile
     volumes :
-      - db:/var/www/html
+      - wordpressdb:/var/www/html
+    networks :
+      tier:
+        aliases:
+          - yujelee.42.fr
 
-volumes : 
-  db :
+
+volumes:
+  db:
+    driver_opts:
+      type: volume
+      o: bind
+      device: /Users/jeong/Documents/Inception/app/db/
+  wordpressdb:
+    driver_opts:
+      type: volume
+      o: bind
+      device: /Users/jeong/Documents/Inception/app/wordpressdb/
+
+networks:
+  tier:

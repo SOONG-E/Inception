@@ -1,12 +1,19 @@
 FROM debian:buster
 
-RUN apt-get -y update && apt-get install -y wget mariadb-client
+WORKDIR requirments/wordpress
 
-RUN	wget -O /tmp/wordpress.tar.gz "http://wordpress.org/latest.tar.gz"
+RUN apt-get -y update && apt-get install -y wget mariadb-client \
+	php7.3-fpm php7.3-gd php7.3-json \
+	php7.3-mysql php7.3-curl	\
+	php7.3-mbstring php7.3-intl	\
+	php-imagick php7.3-xml		\
+	php7.3-zip
 
-RUN mkdir -p /var/www/html
-RUN	tar -xvzf /tmp/wordpress.tar.gz -C /var/www/html
+COPY conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY conf/entrypoint.sh entrypoint.sh
 
-COPY conf /var/www/html/wordpress/wp-config.php
+RUN chmod +x entrypoint.sh
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["sh","./entrypoint.sh"]
+
+CMD php-fpm7.3 --nodaemonize
