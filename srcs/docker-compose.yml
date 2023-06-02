@@ -57,12 +57,12 @@ volumes:
     driver_opts:
       type: volume
       o: bind
-      device: /Users/jeong/Documents/Inception/app/db/
+      device: /home/yujelee/data/db
   wordpressdb:
     driver_opts:
       type: volume
       o: bind
-      device: /Users/jeong/Documents/Inception/app/wordpressdb/
+      device: /home/yujelee/data/wordpressdb/
 
 networks:
   tier:

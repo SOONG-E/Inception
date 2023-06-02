@@ -5,18 +5,18 @@ DB_PATH = app/db
 WORDPRESSDB_PATH = app/wordpressdb
 
 all :
-	$(CDDIR) docker compose up -d
+	$(CDDIR) docker-compose up -d
 
 up : all
 
 down :
-	$(CDDIR) docker compose down
+	$(CDDIR) docker-compose down
 
 build :
-	$(CDDIR) docker compose up -d --build
+	$(CDDIR) docker-compose up -d --build
 
 clean:
-	$(CDDIR) docker compose down
+	$(CDDIR) docker-compose down
 	docker system prune -a
 
 fclean : clean
