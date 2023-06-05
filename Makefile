@@ -1,8 +1,8 @@
 
 CDDIR = cd srcs &&
 
-DB_PATH = app/db
-WORDPRESSDB_PATH = app/wordpressdb
+DB_PATH = /home/yujelee/data/db
+WORDPRESSDB_PATH = /home/yujelee/data/wordpressdb
 
 all :
 	$(CDDIR) docker-compose up -d

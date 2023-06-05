@@ -1,4 +1,3 @@
-su -
 
 // init.sh
 # Repository 인덱스 업데이트
