@@ -1,7 +1,5 @@
 #!/bin/sh
 
-sleep 3
-
 apt-get -y update && apt-get install curl
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
@@ -23,3 +21,4 @@ wp core install --url=${WP_URL} --title=${WP_TITLE} --admin_user=${ADMIN_NAME} -
 wp user create ${USER_NAME} ${USER_EMAIL} --user_pass=${USER_PASSWD} --allow-root --path=${WP_PATH}
 
 exec "$@"
+~
